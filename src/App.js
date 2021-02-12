@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactPlaceholder from 'react-placeholder';
+import 'react-placeholder/lib/reactPlaceholder.css';
 import './App.css';
 
 class App extends React.Component {
@@ -33,17 +35,24 @@ class App extends React.Component {
 
   render() {
     const { quotes, quote } = this.state;
-    // if (!quotes.length) {
+
+    if (!quotes.length) {
       return (
         <main>
           <article className="box">
-            <div className="loading">
-              <p>Loading...</p>
-            </div>
+            <figure>
+              <blockquote id="text">
+                <ReactPlaceholder showLoadingAnimation type='text' rows={2} ready={this.state.ready} />  
+              </blockquote>
+              <figcaption id="author">
+                <ReactPlaceholder showLoadingAnimation type='text' rows={1} ready={this.state.ready} />  
+              </figcaption>
+            </figure>
           </article>
         </main>
       );
-    // }
+    }
+
     return (
       <main>
         <article id="quote-box" className="box">
