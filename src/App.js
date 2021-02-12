@@ -33,22 +33,28 @@ class App extends React.Component {
 
   render() {
     const { quotes, quote } = this.state;
-    if (!quotes.length) {
+    // if (!quotes.length) {
       return (
-        <div>
-          <p>Loading...</p>
-        </div>
+        <main>
+          <article className="box">
+            <div className="loading">
+              <p>Loading...</p>
+            </div>
+          </article>
+        </main>
       );
-    }
+    // }
     return (
-      <article id="quote-box">
-        <figure>
-          <blockquote id="text">{quote.text}</blockquote>
-          <figcaption id="author">{quote.author}</figcaption>
-        </figure>
-        <a href="https://twitter.com/intent/tweet" id="tweet-quote">Tweet quote</a>
-        <button type="button" id="new-quote" onClick={this.changeQuote}>New quote</button>
-      </article>
+      <main>
+        <article id="quote-box" className="box">
+          <figure>
+            <blockquote id="text">"{quote.text}"</blockquote>
+            <figcaption id="author">{quote.author}</figcaption>
+          </figure>
+          <a href="https://twitter.com/intent/tweet" id="tweet-quote">Tweet quote</a>
+          <button type="button" id="new-quote" onClick={this.changeQuote}>New quote</button>
+        </article>
+      </main>
     );
   }
 }
