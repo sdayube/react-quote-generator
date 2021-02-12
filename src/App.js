@@ -9,6 +9,7 @@ class App extends React.Component {
     this.state = {
       quotes: [],
       quote: {},
+      ready: false,
     }
     this.changeQuote = this.changeQuote.bind(this);
   }
@@ -24,6 +25,7 @@ class App extends React.Component {
       .then((quotes) => this.setState({
         quotes,
         quote: this.selectQuote(quotes),
+        ready: true,
       }));
   }
 
@@ -34,34 +36,38 @@ class App extends React.Component {
   }
 
   render() {
-    const { quotes, quote } = this.state;
-
-    if (!quotes.length) {
-      return (
-        <main>
-          <article className="box">
-            <figure>
-              <blockquote id="text">
-                <ReactPlaceholder showLoadingAnimation type='text' rows={2} ready={this.state.ready} />  
-              </blockquote>
-              <figcaption id="author">
-                <ReactPlaceholder showLoadingAnimation type='text' rows={1} ready={this.state.ready} />  
-              </figcaption>
-            </figure>
-          </article>
-        </main>
-      );
-    }
-
+    const { quote, ready } = this.state;
     return (
       <main>
-        <article id="quote-box" className="box">
+        <article id="quote-box">
           <figure>
-            <blockquote id="text">"{quote.text}"</blockquote>
-            <figcaption id="author">{quote.author}</figcaption>
+            <ReactPlaceholder
+              showLoadingAnimation
+              type='text'
+              rows={3}
+              ready={ready}
+            >
+              <blockquote id="text">"{quote.text}"</blockquote>
+              <figcaption id="author">{quote.author}</figcaption>
+            </ReactPlaceholder>
           </figure>
-          <a href="https://twitter.com/intent/tweet" id="tweet-quote">Tweet quote</a>
-          <button type="button" id="new-quote" onClick={this.changeQuote}>New quote</button>
+          <div className="buttons">
+            <a
+              href="https://twitter.com/intent/tweet"
+              id="tweet-quote"
+              className="button"
+            >
+              <i className="fa fa-twitter" />
+            </a>
+            <button
+              type="button"
+              id="new-quote"
+              onClick={this.changeQuote}
+              className="button"
+            >
+              New quote
+            </button>
+          </div>
         </article>
       </main>
     );
